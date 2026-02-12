@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
+import 'app_shell.dart';
 import 'signup.dart';
 
 class LoginPage extends StatefulWidget {
@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const HomePage(),
+                              builder: (context) => const AppShell(),
                             ),
                           );
                         },

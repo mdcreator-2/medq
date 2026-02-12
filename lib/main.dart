@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
+import 'app_shell.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
           secondary: const Color(0xFF00B4B1),
         ),
         scaffoldBackgroundColor: const Color(0xFFF9FBFB),
+        fontFamily: 'Inter',
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF00B4B1),
@@ -59,7 +60,17 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const HomePage(),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF00B4B1),
+          brightness: Brightness.dark,
+        ),
+        scaffoldBackgroundColor: const Color(0xFF101D22),
+        fontFamily: 'Inter',
+      ),
+      themeMode: ThemeMode.system,
+      home: const AppShell(),
     );
   }
 }
