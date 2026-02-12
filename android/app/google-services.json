@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "985292783122",
+    "project_id": "premedq",
+    "storage_bucket": "premedq.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985292783122:android:b036c747c2033963cf22cb",
+        "android_client_info": {
+          "package_name": "com.example.medq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985292783122-gt5acucn65giarsp48bngacj4990gfsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-TCVltu3X2S6bpZKU_ChbmwN0c6n_6tg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985292783122-gt5acucn65giarsp48bngacj4990gfsm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

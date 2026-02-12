@@ -1,8 +1,6 @@
 import "package:flutter/material.dart";
 import 'components/questionbank/filter_chip_button.dart';
-import 'components/questionbank/featured_card.dart';
 import 'components/questionbank/question_card.dart';
-import 'components/questionbank/progress_question_card.dart';
 
 class QuestionBankContent extends StatelessWidget {
   const QuestionBankContent({super.key});
@@ -147,13 +145,6 @@ class QuestionBankContent extends StatelessWidget {
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             children: [
-                              // Featured Card
-                              FeaturedCard(
-                                isDark: isDark,
-                                primaryColor: primaryColor,
-                                surfaceLight: surfaceLight,
-                                surfaceDark: surfaceDark,
-                              ),
                               const SizedBox(height: 16),
 
                               // List Item Card 1
@@ -193,21 +184,6 @@ class QuestionBankContent extends StatelessWidget {
                                 surfaceDark: surfaceDark,
                               ),
                               const SizedBox(height: 16),
-
-                              // List Item Card 3
-                              ProgressQuestionCard(
-                                isDark: isDark,
-                                category: "Physiology • Renal",
-                                title: "Glomerular Filtration Rate",
-                                description:
-                                    "Calculate GFR using creatinine clearance and understand factors affecting filtration pressure.",
-                                type: "MCQ",
-                                progress: 0.66,
-                                categoryColor: Colors.pink,
-                                primaryColor: primaryColor,
-                                surfaceLight: surfaceLight,
-                                surfaceDark: surfaceDark,
-                              ),
                             ],
                           ),
                         ),
