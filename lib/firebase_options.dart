@@ -64,7 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '985292783122',
     projectId: 'premedq',
     storageBucket: 'premedq.firebasestorage.app',
-    iosClientId: '985292783122-mg9tf3kpgjgltjjvbes9vfql6eeerpjg.apps.googleusercontent.com',
+    iosClientId:
+        '985292783122-mg9tf3kpgjgltjjvbes9vfql6eeerpjg.apps.googleusercontent.com',
     iosBundleId: 'com.example.medq',
   );
 
@@ -74,7 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '985292783122',
     projectId: 'premedq',
     storageBucket: 'premedq.firebasestorage.app',
-    iosClientId: '985292783122-mg9tf3kpgjgltjjvbes9vfql6eeerpjg.apps.googleusercontent.com',
+    iosClientId:
+        '985292783122-mg9tf3kpgjgltjjvbes9vfql6eeerpjg.apps.googleusercontent.com',
     iosBundleId: 'com.example.medq',
   );
 

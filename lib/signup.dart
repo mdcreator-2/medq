@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'app_shell.dart';
+import 'components/common/primary_button.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -9,6 +11,11 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isLoading = false;
+  String? _selectedCollege;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +51,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
 
-                      const TextField(
+                      TextField(
+                        controller: _nameController,
                         decoration: InputDecoration(
                           label: Text('Full Name'),
                           hintText: 'Dr. John Doe',
@@ -59,25 +67,24 @@ class _SignUpPageState extends State<SignUpPage> {
                           DropdownMenuItem(value: '1', child: Text('Option 1')),
                           DropdownMenuItem(value: '2', child: Text('Option 2')),
                         ],
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedCollege = value;
+                          });
+                        },
                       ),
 
-                      const TextField(
+                      TextField(
+                        controller: _emailController,
                         decoration: InputDecoration(
                           label: Text('Email'),
                           hintText: 'johndoe@gmail.com',
                           prefixIcon: Icon(Icons.email_outlined),
-                          suffixIcon: Padding(
-                            padding: EdgeInsets.only(right: 12.0),
-                            child: Icon(
-                              Icons.visibility_off_outlined,
-                              color: Colors.grey,
-                            ),
-                          ),
                         ),
                       ),
 
-                      const TextField(
+                      TextField(
+                        controller: _passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           label: Text('Password'),
@@ -94,23 +101,41 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
 
                       const SizedBox(height: 5),
-
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AppShell(),
-                            ),
-                          );
+                      PrimaryButton(
+                        text: 'Sign Up',
+                        isLoading: _isLoading,
+                        onPressed: () async {
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          try {
+                            final credential = await FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                );
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(credential.user!.uid)
+                                .set({
+                                  'name': _nameController.text,
+                                  'email': _emailController.text,
+                                  'college':
+                                      _selectedCollege ?? 'Not specified',
+                                  'created_at': FieldValue.serverTimestamp(),
+                                });
+                            if (context.mounted) {
+                              Navigator.of(context).pop();
+                            }
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString())),
+                            );
+                          }
+                          setState(() {
+                            _isLoading = false;
+                          });
                         },
-                        child: const Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                       ),
                     ],
                   ),

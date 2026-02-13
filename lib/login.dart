@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'app_shell.dart';
 import 'signup.dart';
+import 'components/common/primary_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,6 +11,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,15 +49,18 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
 
-                      const TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Username',
-                          prefixIcon: Icon(Icons.person_outline),
+                      //Adding TextEditingController - How?
+                      TextField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
+                          hintText: 'Email',
+                          prefixIcon: Icon(Icons.email_outlined),
                         ),
                       ),
-                      const TextField(
+                      TextField(
+                        controller: _passwordController,
                         obscureText: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Password',
                           prefixIcon: Icon(Icons.lock_outline),
                           suffixIcon: Padding(
@@ -78,23 +85,28 @@ class _LoginPageState extends State<LoginPage> {
                       ),
 
                       const SizedBox(height: 5),
-
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AppShell(),
-                            ),
-                          );
+                      PrimaryButton(
+                        text: 'Login',
+                        isLoading: _isLoading,
+                        onPressed: () async {
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          try {
+                            await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                                  email: _emailController.text.trim(),
+                                  password: _passwordController.text.trim(),
+                                );
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString())),
+                            );
+                          }
+                          setState(() {
+                            _isLoading = false;
+                          });
                         },
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                       ),
 
                       const SizedBox(height: 5),
@@ -128,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => const SignUpPage(),
